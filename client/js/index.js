@@ -70,13 +70,13 @@ const Dapp = {
   },
   deployPollFactory: function() {
     var pollfactoryContract = Dapp.web3.eth.contract(
-      JSON.parse(compiledFactory.interface)
+      JSON.parse(compiledPollFactory.interface)
     );
     console.log("Deploying poll factory...");
     pollfactoryContract.new(
       {
         from: Dapp.userAddress,
-        data: compiledFactory.bytecode,
+        data: compiledPollFactory.bytecode,
         gas: "4700000"
       },
       function(e, contract) {
@@ -94,6 +94,7 @@ const Dapp = {
   },
   createNewPoll: function() {
     const pollQuestion = $("#pollQuestion").val();
+    const amount = $("#amount").val();
     const options = [];
     $(".option").each(function(index) {
       var option = $(this).val();
@@ -127,24 +128,27 @@ const Dapp = {
         alert('please input the question and options!');
         return;
 
-    }
+    };
+
     var factory = this.getPollFactory();
+    console.log(factory);
     factory.createPoll(
       pollQuestion,
+      amount,
       {
         from: Dapp.userAddress,
         gas: 1000000
       },
       function(e, txHash) {
         if (!e) {
-          console.log("Create poll - transaction hash:");
+          console.log("Create request - transaction hash:");
           console.log(txHash);
           
           var pollCreatedEvent = factory.PollCreated();
           pollCreatedEvent.watch(function(error, result) {
             if (!error) {
               if (result.transactionHash == txHash) {
-                console.log("On PollCreated -> Start adding options");
+                console.log("On RequestCreated -> Start adding options");
                 Dapp.addOptions(result.args.pollAddress, options);
               }
             }
@@ -228,7 +232,7 @@ const Dapp = {
   },
   getPollFactory: function() {
     var factoryContract = Dapp.web3.eth.contract(
-      JSON.parse(compiledFactory.interface)
+      JSON.parse(compiledPollFactory.interface)
     );
     return factoryContract.at(Dapp.pollFactoryAddress);
   },

@@ -5,8 +5,8 @@ contract PollFactory{
     
     address[] deployedPolls;
     address public latestPoll;
-    function createPoll(string question) public {
-        latestPoll = new Poll(question);
+    function createPoll(string question, int amount) public {
+        latestPoll = new Poll(question, amount);
         deployedPolls.push(latestPoll);
         emit PollCreated(latestPoll);
     }
@@ -26,10 +26,12 @@ contract Poll{
     }
 
     string public question;
+    int public amount;
     Option[] public options;
 
-    constructor(string initQuestion) public {
+    constructor(string initQuestion, int initAmount) public {
         question = initQuestion;
+        amount =  initAmount;
     }
 
     function createNewOption(string optionName) public {
