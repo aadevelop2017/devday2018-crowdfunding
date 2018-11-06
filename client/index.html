@@ -19,6 +19,12 @@
         <a class="nav-link active" id="account-tab" data-toggle="tab" href="#panel-account" role="tab" aria-controls="panel-account"
           aria-selected="true">Account</a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" id="project-tab" data-toggle="tab" href="#panel-project" role="tab" aria-controls="panel-project"
+          aria-selected="true">Create Project</a>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link" id="node-status-tab" data-toggle="tab" href="#panel-node-status" role="tab" aria-controls="panel-node-status"
           aria-selected="false">Node Status</a>
@@ -47,6 +53,12 @@
           <button type="button" class="btn btn-primary btn-sm" onclick="Dapp.createNewAccount()">Create new account</button>
           or
           <button type="button" class="btn btn-secondary btn-sm" onclick="Dapp.inputUserAddress()">Input existing address</button>
+        </div>
+      </div>
+
+      <div class="tab-pane show" id="panel-project" role="tabpanel" aria-labelledby="project-tab">
+        <div class="container pt-3">
+          <button type="button" class="btn btn-primary btn-sm" onclick="Dapp.createNewProject()">Create new project</button>
         </div>
       </div>
       
@@ -176,7 +188,7 @@
         {{~}}
       </ul>
     </div>
-	</script>
+  </script>
 
   <!-- Libraries -->
   <script src="js/web3.js"></script>
