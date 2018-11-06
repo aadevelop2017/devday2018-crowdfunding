@@ -5,7 +5,8 @@ contract ProjectFactory{
     
     address[] deployedProjects;
     address public latestProject;
-        function createProject( 
+    
+    function createProject( 
         address founder, 
         string name,
         address[] sponsors,
